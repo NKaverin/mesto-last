@@ -137,3 +137,18 @@ const initialCards = [
 
 // создаем карточки отображаем на странице
 initialCards.forEach(element => elementsOnline.prepend(createElementToElements(element.name,element.link)));
+
+// закрытие поп-апа по клику
+document.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup') == true) {
+        closePopup(document.querySelector('.popup_condition_opened'));
+    }
+})
+
+// закрытие поп-апа по кнопке esc
+document.addEventListener('keydown', function (evt) {
+    popup = document.querySelector('.popup_condition_opened');
+    if (evt.key = 'esc' && popup) {
+        closePopup(popup);
+    }
+})
