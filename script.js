@@ -137,3 +137,27 @@ const initialCards = [
 
 // создаем карточки отображаем на странице
 initialCards.forEach(element => elementsOnline.prepend(createElementToElements(element.name,element.link)));
+
+// закрытие поп-апа по клику
+document.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup') == true) {
+        closePopup(document.querySelector('.popup_condition_opened'));
+    }
+})
+
+// закрытие поп-апа по кнопке esc
+document.addEventListener('keydown', function (evt) {
+    popup = document.querySelector('.popup_condition_opened');
+    if (evt.key = 'esc' && popup) {
+        closePopup(popup);
+    }
+})
+
+// проверка валидности и доступность кнопки
+editForm = document.querySelector('#popupEditProfile');
+editFormSubmitButton = editForm.querySelector('.popup__submit-button');
+inputListEditForm = Array.from(editForm.querySelectorAll('input'));
+
+inputListEditForm.forEach(element => {
+    element.addEventListener('')
+})
