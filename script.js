@@ -152,3 +152,12 @@ document.addEventListener('keydown', function (evt) {
         closePopup(popup);
     }
 })
+
+// проверка валидности и доступность кнопки
+editForm = document.querySelector('#popupEditProfile');
+editFormSubmitButton = editForm.querySelector('.popup__submit-button');
+inputListEditForm = Array.from(editForm.querySelectorAll('input'));
+
+inputListEditForm.forEach(element => {
+    element.addEventListener('')
+})
