@@ -158,15 +158,15 @@ document.addEventListener('keydown', function (evt) {
 // показываем ошибку по полю
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('popup__input_type_error');
+    inputElement.classList.add(`.${settings.inputErrorClass}`);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('popup__input-error_active');
+    errorElement.classList.add(`.${settings.errorClass}`);
   };
   
   const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('popup__input_type_error');
-    errorElement.classList.remove('popup__input-error_active');
+    inputElement.classList.remove(`.${settings.inputErrorClass}`);
+    errorElement.classList.remove(`.${settings.errorClass}`);
     errorElement.textContent = '';
  }; 
   
@@ -190,22 +190,37 @@ const hasInvalidInput = (inputList) => {
 const handleSubmitButton = (submitButton, inputList) => {
     if (hasInvalidInput(inputList)) {
         submitButton.disabled = false;     
-        submitButton.classList.remove('popup__submit-button_inactive');
+        submitButton.classList.remove(`.${settings.inactiveButtonClass}`);
     } else {
         submitButton.disabled = true; 
-        submitButton.classList.add('popup__submit-button_inactive');
+        submitButton.classList.add(`.${settings.inactiveButtonClass}`);
     }   
 }
 
 // добавляет всем инпутам слушателей
 const setEventListeners = (formElement) => {
-    const buttonElement = formElement.querySelector('.popup__submit-button');
+    const buttonElement = formElement.querySelector(`.${settings.submitButtonSelector}`);
     // поля внутри формы
-    const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
+    const inputList = Array.from(formElement.querySelectorAll(`.${settings.inputSelector}`));
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             isValid(formElement, inputElement);
             handleSubmitButton(buttonElement, inputList);
         });
     });
+}; 
+
+//на вход подается объект вида:
+//{
+//    formSelector: '.popup__form',
+//    inputSelector: '.popup__field',
+//    submitButtonSelector: '.popup__submit-button',
+//    inactiveButtonClass: 'popup__submit-button_inactive',
+//    inputErrorClass: 'popup__field_type_error',
+//    errorClass: 'popup__field-error_active'
+//}
+const enableValidation = (settings) => {
+    // ищем все формы
+    const formsList = document.querySelectorAll(`.${settings.formSelector}`);
+    formsList.forEach(element => setEventListeners(element));
 }; 
