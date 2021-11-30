@@ -208,9 +208,11 @@ const setEventListeners = (formElement) => {
             handleSubmitButton(buttonElement, inputList);
         });
     });
+    // включаем/выключаем кнопку по умолчанию
+    handleSubmitButton(buttonElement, inputList);
 }; 
 
-//на вход подается объект вида:
+// подключет всю валидацию на странице, на вход подается объект вида:
 //{
 //    formSelector: '.popup__form',
 //    inputSelector: '.popup__field',
@@ -224,3 +226,13 @@ const enableValidation = (settings) => {
     const formsList = document.querySelectorAll(`.${settings.formSelector}`);
     formsList.forEach(element => setEventListeners(element));
 }; 
+
+//подключаем валидацию
+enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_inactive',
+    inputErrorClass: 'popup__field_type_error',
+    errorClass: 'popup__field-error_active'
+});
