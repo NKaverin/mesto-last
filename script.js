@@ -153,19 +153,23 @@ document.addEventListener('keydown', function (evt) {
     }
 })
 
-// проверка валидности и доступность кнопки
-editForm = document.querySelector('#popupEditProfile');
-editFormSubmitButton = editForm.querySelector('.popup__submit-button');
-inputListEditForm = Array.from(editForm.querySelectorAll('input'));
+// проверка валидности формы редактирования
+const editFormSubmitButton = popupEditProfile.querySelector('.popup__submit-button');
+const inputListEditForm = Array.from(popupEditProfile.querySelectorAll('input'));
 
-inputListEditForm.forEach(element => {
-    element.addEventListener('input', handleSubmitButton);
-})
-
-function handleSubmitButton() {
+function handleSubmitButton(submitButton) {
     if (!formInput.validity.valid) {
-        editFormSubmitButton.disabled = false;     
+        submitButton.disabled = false;     
+        submitButton.classList.remove('popup__submit_inactive');
     } else {
-        editFormSubmitButton.disabled = true; 
+        submitButton.disabled = true; 
+        submitButton.classList.add('popup__submit_inactive');
     }   
 }
+
+inputListEditForm.forEach(element => {
+    element.addEventListener('input', handleSubmitButton(editFormSubmitButton));
+})
+
+//нужно вызвать при открытии handleSubmitButton(submitButton)
+
