@@ -153,23 +153,59 @@ document.addEventListener('keydown', function (evt) {
     }
 })
 
-// проверка валидности формы редактирования
-const editFormSubmitButton = popupEditProfile.querySelector('.popup__submit-button');
-const inputListEditForm = Array.from(popupEditProfile.querySelectorAll('input'));
+//в а л и д а ц и я
 
-function handleSubmitButton(submitButton) {
-    if (!formInput.validity.valid) {
+// показываем ошибку по полю
+const showInputError = (formElement, inputElement, errorMessage) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add('popup__input_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('popup__input-error_active');
+  };
+  
+  const hideInputError = (formElement, inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('popup__input_type_error');
+    errorElement.classList.remove('popup__input-error_active');
+    errorElement.textContent = '';
+ }; 
+  
+// проверяем валидность поля
+const isValid = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+        showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+        hideInputError(formElement, inputElement);
+    }
+}; 
+
+// если какое-то из полей не валидно - возвращает true
+const hasInvalidInput = (inputList) => {
+    return inputList.some((inputElement) => { 
+        return !inputElement.validity.valid;
+    })
+}; 
+
+// управление доступностью кнопки
+const handleSubmitButton = (submitButton, inputList) => {
+    if (hasInvalidInput(inputList)) {
         submitButton.disabled = false;     
-        submitButton.classList.remove('popup__submit_inactive');
+        submitButton.classList.remove('popup__submit-button_inactive');
     } else {
         submitButton.disabled = true; 
-        submitButton.classList.add('popup__submit_inactive');
+        submitButton.classList.add('popup__submit-button_inactive');
     }   
 }
 
-inputListEditForm.forEach(element => {
-    element.addEventListener('input', handleSubmitButton(editFormSubmitButton));
-})
-
-//нужно вызвать при открытии handleSubmitButton(submitButton)
-
+// добавляет всем инпутам слушателей
+const setEventListeners = (formElement) => {
+    const buttonElement = formElement.querySelector('.popup__submit-button');
+    // поля внутри формы
+    const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', () => {
+            isValid(formElement, inputElement);
+            handleSubmitButton(buttonElement, inputList);
+        });
+    });
+}; 
