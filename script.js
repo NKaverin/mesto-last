@@ -159,5 +159,13 @@ editFormSubmitButton = editForm.querySelector('.popup__submit-button');
 inputListEditForm = Array.from(editForm.querySelectorAll('input'));
 
 inputListEditForm.forEach(element => {
-    element.addEventListener('')
+    element.addEventListener('input', handleSubmitButton);
 })
+
+function handleSubmitButton() {
+    if (!formInput.validity.valid) {
+        editFormSubmitButton.disabled = false;     
+    } else {
+        editFormSubmitButton.disabled = true; 
+    }   
+}
