@@ -147,8 +147,9 @@ document.addEventListener('click', function (evt) {
 // закрытие поп-апа по кнопке esc
 document.addEventListener('keydown', function (evt) {
     popup = document.querySelector('.popup_condition_opened');
+    console.log(evt.key);
     if (evt.key = 'esc' && popup) {
-        closePopup(popup);
+        //closePopup(popup);
     }
 })
 
