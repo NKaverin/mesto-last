@@ -155,6 +155,7 @@ document.addEventListener('keydown', function (evt) {
 
 //в а л и д а ц и я
 
+// настройки для валидации
 settings = {
     formSelector: '.popup__form',
     inputSelector: '.popup__field',
@@ -213,8 +214,7 @@ const setEventListeners = (formElement) => {
     // поля внутри формы
     const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', (evt) => {
-            evt.preventDefault();
+        inputElement.addEventListener('input', () => {
             isValid(formElement, inputElement);
             handleSubmitButton(buttonElement, inputList);
         });
@@ -223,15 +223,7 @@ const setEventListeners = (formElement) => {
     handleSubmitButton(buttonElement, inputList);
 }; 
 
-// подключет всю валидацию на странице, на вход подается объект вида:
-//{
-//    formSelector: '.popup__form',
-//    inputSelector: '.popup__field',
-//    submitButtonSelector: '.popup__submit-button',
-//    inactiveButtonClass: 'popup__submit-button_inactive',
-//    inputErrorClass: 'popup__field_type_error',
-//    errorClass: 'popup__field-error_active'
-//}
+// подключет всю валидацию на странице, используя settings:
 const enableValidation = () => {
     // ищем все формы
     const formsList = document.querySelectorAll(settings.formSelector);
