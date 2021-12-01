@@ -159,9 +159,9 @@ settings = {
     formSelector: '.popup__form',
     inputSelector: '.popup__field',
     submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_inactive',
-    inputErrorClass: 'popup__field_type_error',
-    errorClass: 'popup__field-error_active'
+    inactiveButtonClass: '.popup__submit-button_inactive',
+    inputErrorClass: '.popup__field_type_error',
+    errorClass: '.popup__field-error_active'
 }
 
 // показываем ошибку по полю
@@ -233,7 +233,10 @@ const setEventListeners = (formElement) => {
 const enableValidation = () => {
     // ищем все формы
     const formsList = document.querySelectorAll(settings.formSelector);
-    formsList.forEach(element => setEventListeners(element));
+    formsList.forEach(element => {
+        evt.preventDefault();
+        setEventListeners(element); 
+    });
 }; 
 
 //подключаем валидацию
