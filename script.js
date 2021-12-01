@@ -141,7 +141,7 @@ initialCards.forEach(element => elementsOnline.prepend(createElementToElements(e
 // закрытие поп-апа по клику
 document.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup') == true) {
-        closePopup(document.querySelector('.popup_condition_opened'));
+       // closePopup(document.querySelector('.popup_condition_opened'));
     }
 })
 
@@ -149,27 +149,36 @@ document.addEventListener('click', function (evt) {
 document.addEventListener('keydown', function (evt) {
     popup = document.querySelector('.popup_condition_opened');
     if (evt.key = 'esc' && popup) {
-        closePopup(popup);
+        //closePopup(popup);
     }
 })
 
 //в а л и д а ц и я
 
+settings = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_inactive',
+    inputErrorClass: 'popup__field_type_error',
+    errorClass: 'popup__field-error_active'
+}
+
 // показываем ошибку по полю
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(`.${settings.inputErrorClass}`);
+    inputElement.classList.add(settings.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(`.${settings.errorClass}`);
-  };
-  
-  const hideInputError = (formElement, inputElement) => {
+    errorElement.classList.add(settings.errorClass);
+};
+
+const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(`.${settings.inputErrorClass}`);
-    errorElement.classList.remove(`.${settings.errorClass}`);
+    inputElement.classList.remove(settings.inputErrorClass);
+    errorElement.classList.remove(settings.errorClass);
     errorElement.textContent = '';
- }; 
-  
+}; 
+
 // проверяем валидность поля
 const isValid = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
@@ -190,18 +199,18 @@ const hasInvalidInput = (inputList) => {
 const handleSubmitButton = (submitButton, inputList) => {
     if (hasInvalidInput(inputList)) {
         submitButton.disabled = false;     
-        submitButton.classList.remove(`.${settings.inactiveButtonClass}`);
+        submitButton.classList.remove(settings.inactiveButtonClass);
     } else {
         submitButton.disabled = true; 
-        submitButton.classList.add(`.${settings.inactiveButtonClass}`);
+        submitButton.classList.add(settings.inactiveButtonClass);
     }   
 }
 
 // добавляет всем инпутам слушателей
 const setEventListeners = (formElement) => {
-    const buttonElement = formElement.querySelector(`.${settings.submitButtonSelector}`);
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
     // поля внутри формы
-    const inputList = Array.from(formElement.querySelectorAll(`.${settings.inputSelector}`));
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             isValid(formElement, inputElement);
@@ -221,18 +230,11 @@ const setEventListeners = (formElement) => {
 //    inputErrorClass: 'popup__field_type_error',
 //    errorClass: 'popup__field-error_active'
 //}
-const enableValidation = (settings) => {
+const enableValidation = () => {
     // ищем все формы
-    const formsList = document.querySelectorAll(`.${settings.formSelector}`);
+    const formsList = document.querySelectorAll(settings.formSelector);
     formsList.forEach(element => setEventListeners(element));
 }; 
 
 //подключаем валидацию
-enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__field',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_inactive',
-    inputErrorClass: 'popup__field_type_error',
-    errorClass: 'popup__field-error_active'
-});
+enableValidation();
