@@ -234,7 +234,7 @@ const enableValidation = () => {
     // ищем все формы
     const formsList = document.querySelectorAll(settings.formSelector);
     formsList.forEach(element => {
-        formElement.addEventListener('submit', (evt) => {
+        element.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
         setEventListeners(element); 
