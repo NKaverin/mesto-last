@@ -201,7 +201,7 @@ const hasInvalidInput = (inputList) => {
 const handleSubmitButton = (submitButton, inputList) => {
     if (hasInvalidInput(inputList)) {
         submitButton.disabled = false;     
-        submitButton.classList.add(settings.inactiveButtonClass);
+        submitButton.classList.remove(settings.inactiveButtonClass);
     } else {
         submitButton.disabled = true; 
         submitButton.classList.add(settings.inactiveButtonClass);
