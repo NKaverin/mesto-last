@@ -70,7 +70,9 @@ function handleEditProfileForm (evt) {
 popupEditProfile.addEventListener('submit', handleEditProfileForm); 
 
 // добавляем открытие этого поп-апа
-document.querySelector('.profile__edit-button').addEventListener('click', function () {  
+document.querySelector('.profile__edit-button').addEventListener('click', function () {
+    nameInput.value = profileName.textContent;
+    captionInput.value = profileCaption.textContent;  
     openPopup(popupEditProfile);
 })
 
