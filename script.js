@@ -213,7 +213,7 @@ const setEventListeners = (formElement) => {
     // поля внутри формы
     const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', () => {
+        inputElement.addEventListener('input', (evt) => {
             evt.preventDefault();
             isValid(formElement, inputElement);
             handleSubmitButton(buttonElement, inputList);
