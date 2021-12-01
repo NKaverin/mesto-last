@@ -13,7 +13,6 @@ function addHandlerClickOnHeart(element) {
 // закрытие поп-апа
 function closePopup(popup) {
     popup.classList.remove('popup_condition_opened');
-    console.log
 }
 
 // открытие поп-апа
@@ -141,7 +140,7 @@ initialCards.forEach(element => elementsOnline.prepend(createElementToElements(e
 // закрытие поп-апа по клику
 document.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup') == true) {
-       // closePopup(document.querySelector('.popup_condition_opened'));
+        closePopup(document.querySelector('.popup_condition_opened'));
     }
 })
 
@@ -149,7 +148,7 @@ document.addEventListener('click', function (evt) {
 document.addEventListener('keydown', function (evt) {
     popup = document.querySelector('.popup_condition_opened');
     if (evt.key = 'esc' && popup) {
-        //closePopup(popup);
+        closePopup(popup);
     }
 })
 
