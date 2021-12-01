@@ -50,7 +50,7 @@ const profileCaption = document.querySelector('.profile__caption');
 
 popupEditProfile.addEventListener('submit', handleEditProfileForm); 
 
-// добавляем открытие этого поп-апа
+// добавляем открытие поп-апа редактирования
 document.querySelector('.profile__edit-button').addEventListener('click', function () {
     nameInput.value = profileName.textContent;
     captionInput.value = profileCaption.textContent;  
