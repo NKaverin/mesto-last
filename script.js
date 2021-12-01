@@ -172,6 +172,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     errorElement.classList.add(settings.errorClass);
 };
 
+// скрываем ошибку по полю
 const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(settings.inputErrorClass);
@@ -213,6 +214,7 @@ const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
+            evt.preventDefault();
             isValid(formElement, inputElement);
             handleSubmitButton(buttonElement, inputList);
         });
